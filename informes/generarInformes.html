@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Informe</title>
+    <link rel="stylesheet" href="generarInforme.css">
+</head>
+<body>
+    <div class="contenedorcito-login">
+      <div class="contenedorcito-1">
+        <img src="../img/imagen1.png" alt="Informe Ilustración" class="login-img">
+      </div>
+      <div class="contenedorcito-2">
+        <form class="login-form" onsubmit="event.preventDefault(); generarInforme();">
+          <h2>Generar Informe Anual</h2>
+          <label for="anio">Seleccione el año:</label>
+          <select id="anio"></select>
+          <button type="submit" style="margin-top: 15px;">Crear</button>
+          <div id="resultadoInforme" style="margin-top: 30px;"></div>
+        </form>
+      </div>
+    </div>
+
+<script>
+// Llenar el selector de años hasta el año actual
+var select = document.getElementById('anio');
+var yearNow = new Date().getFullYear();
+for(var y = yearNow; y >= 2000; y--) {
+  var opt = document.createElement('option');
+  opt.value = y;
+  opt.textContent = y;
+  select.appendChild(opt);
+}
+
+function generarInforme() {
+  var anio = select.value;
+  var resultado = document.getElementById('resultadoInforme');
+  resultado.innerHTML = '<p>Generando informe...</p>';
+  // Aquí se haría la petición a la API REST
+  // Ejemplo:
+  // fetch(`https://tu-api.com/informe?anio=' + anio)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Procesar y mostrar el informe con los datos recibidos
+  //     resultado.innerHTML = `<h3>Informe del año ${anio}</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+  //   })
+  //   .catch(error => {
+  //     resultado.innerHTML = '<p>Error al obtener el informe.</p>';
+  //   });
+  // Por ahora, solo muestra un mensaje de ejemplo:
+  resultado.innerHTML = `<h3>Informe del año ${anio}</h3><p>(Aquí se mostraría el informe generado con los datos reales de la base de datos)</p>`;
+}
+</script>
+</body>
+</html>
