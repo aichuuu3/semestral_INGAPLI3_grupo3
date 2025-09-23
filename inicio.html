@@ -1,44 +1,182 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Academia Panameña de Literatura Infantil y Juvenil</title>
+    <meta charset="UTF-8">
+    <title>Academia Panameña de Literatura Infantil y Juvenil</title>
     <link rel="stylesheet" href="inicio.css">
 </head>
 <body>
-  <header>
-    <div class="titulo">
-      <h1>Academia Panameña de<br>Literatura Infantil y Juvenil</h1>
-    </div>
-
     <nav>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Videos y cortometrajes</a></li>
-        <li><a href="#">Boletines</a></li>
-        <li><a href="#">Conoce a tu autor</a></li>
-        <li><a href="#">Programas Radiales</a></li>
-        <li><a href="#">Contáctanos</a></li>
-        <li><a href="solicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
-      </ul>
+        <ul>
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="videosCortometrajes.html">Videos y cortometrajes</a></li>
+            <li><a href="boletines.html">Boletines</a></li>
+            <li><a href="autores.html">Conoce a tu autor</a></li>
+            <li><a href="programas.html">Programas Radiales</a></li>
+            <li><a href="contactanos.html">Contáctanos</a></li>
+            <li><a href="solicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
+        </ul>
     </nav>
-  </header>
+    
+    <header>
+        <div class="titulo">
+            <h1>Academia Panameña de<br>Literatura Infantil y Juvenil</h1>
+        </div>
+        
+        <div class="formulario-reservas" id="booking-widget">
+            <div class="tabs">
+                <button class="tab-btn active">Donar Libros</button>
+            </div>
+            
+            <div class="info-bar">
+                <div class="best-rate">
+                    Realiza tu donacion de forma rapida y segura, llenando los datos aqui debajo:
+                </div>
+            </div>
+            
+            <div class="form-fields">
+                <div class="input-group">
+                    <input type="text" class="form-input" placeholder="Nombre del libro">
+                </div>
+                <div class="input-group">
+                    <select class="form-input">
+                        <option value="">Selecciona categoría</option>
+                        <option value="infantil">Literatura Infantil</option>
+                        <option value="juvenil">Literatura Juvenil</option>
+                        <option value="educativo">Educativo</option>
+                        <option value="cuentos">Cuentos</option>
+                        <option value="poesia">Poesía</option>
+                        <option value="novela">Novela</option>
+                        <option value="comic">Cómic/Historieta</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <select class="form-input">
+                        <option value="">Selecciona ubicación</option>
+                        <option value="panama">Ciudad de Panamá</option>
+                        <option value="san-miguelito">San Miguelito</option>
+                        <option value="tocumen">Tocumen</option>
+                        <option value="penonome">Penonomé</option>
+                        <option value="chorrera">La Chorrera</option>
+                        <option value="colon">Colón</option>
+                        <option value="david">David</option>
+                        <option value="santiago">Santiago</option>
+                        <option value="chitre">Chitré</option>
+                        <option value="las-tablas">Las Tablas</option>
+                        <option value="otras">Otras provincias</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="form-button">DONAR</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <h2>Bienvenidos a la APLIJ</h2>
-  <p>“Sembramos libros en las manos de los niños y jóvenes, para que mañana florezcan en ciudadanos libres, críticos y soñadores.”</p>
+    <!-- Sección de Bienvenida Mejorada -->
+    <section class="bienvenida-section">
+        <div class="container">
+            <div class="bienvenida-content">
+                <h2 class="bienvenida-title">Bienvenidos a la APLIJ</h2>
+                <p class="bienvenida-quote">
+                    “Sembramos libros en las manos de los niños y jóvenes, para que mañana florezcan en ciudadanos libres, críticos y soñadores.”
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección Quiénes Somos con Video -->
+    <section class="quienes-somos-section">
+        <div class="container">
+            <div class="quienes-somos-grid">
+                <div class="texto-content">
+                    <h2 class="section-title">¿Quiénes somos?</h2>
+                    <div class="texto-wrapper">
+                        <p class="section-text">
+                            La Academia Panameña de Literatura Infantil y Juvenil es una organización sin fines de lucro, 
+                            dedicada a fomentar la lectura en los niños y jóvenes panameños, trabajando en armonía con 
+                            otras asociaciones e instituciones privadas o gubernamentales en su labor de la promoción 
+                            y estudio de la literatura.
+                        </p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon"></span>
+                                <span>Promoción de la lectura infantil</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon"></span>
+                                <span>Programas educativos especializados</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon"></span>
+                                <span>Colaboración interinstitucional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="media-content">
+                    <div class="media-container">
+                        <!-- Solo imagen sin video -->
+                        <img src="img/logo_aplj.png" alt="Academia de Literatura" class="media-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Sección "Quiénes somos" -->
-  <section id="quienes-somos">
-    <h2>¿Quiénes somos?</h2>
-    <p>
-      La Academia Panameña de Literatura Infantil y Juvenil es una organización sin fines de lucro, 
-      dedicada a fomentar la lectura en los niños y jóvenes panameños, trabajando en armonía con 
-      otras asociaciones e instituciones privadas o gubernamentales en su labor de la promoción 
-      y estudio de la literatura.
-    </p>
+    <!-- Sección de Clientes -->
+    <section id="clientes">
+        <h2>Clientes</h2>
+        <div class="clientes-logos">
+            <div class="logo-item">
+                <img src="img/cliente5.png" alt="Talo" class="logo-img">
+            </div>
+            <div class="logo-item">
+                <img src="img/cliente4.png" alt="Solid State" class="logo-img">
+            </div>
+            <div class="logo-item">
+                <img src="img/cliente3.png" alt="Noted" class="logo-img">
+            </div>
+            <div class="logo-item">
+                <img src="img/cliente2.png" alt="Goan" class="logo-img">
+            </div>
+            <div class="logo-item">
+                <img src="img/cliente1.png" alt="Mowi" class="logo-img">
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>Personería Jurídica Resolución 176-JP - 1333 del 31 de mayo 2013.</p>
-  </footer>
+    <footer>
+        <p>Personería Jurídica Resolución 176-JP - 1333 del 31 de mayo 2013.</p>
+    </footer>
+
+    <script>
+    window.addEventListener('scroll', function() {
+        const widget = document.getElementById('booking-widget');
+        const triggerElement = document.getElementById('bienvenida-section');
+
+        console.log('Posición de Scroll:', window.scrollY);
+
+        if (!widget) {
+            console.log('ERROR: El formulario no tiene el ID "booking-widget"');
+        }
+
+        if (!triggerElement) {
+            console.log('ERROR: La sección de bienvenida no tiene el ID "bienvenida-section"');
+        } else {
+            console.log('Posición del punto de activación:', triggerElement.offsetTop);
+        }
+
+        if (widget && triggerElement && window.scrollY > triggerElement.offsetTop) {
+            console.log('¡CONDICIÓN DE SCROLL CUMPLIDA! Agregando la clase "is-sticky".');
+            widget.classList.add('is-sticky');
+        } else if (widget) {
+            console.log('CONDICIÓN DE SCROLL NO CUMPLIDA. Removiendo la clase "is-sticky".');
+            widget.classList.remove('is-sticky');
+        }
+    });
+</script>
 </body>
 </html>

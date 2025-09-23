@@ -1,117 +1,550 @@
-/* reset de márgenes, paddings y box-sizing */
+/*reset de margenes, paddings y box-sizing*/
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    height: 100%;
 }
 
 body, html {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /*evita scroll horizontal*/
 }
 
 header {
-  position: relative;
-  height: 100vh;
-  background: url('img/imagen2.png') no-repeat center center/cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    position: relative;
+    height: 100vh;
+    width: 100vw; 
+    background: url('img/imagen2.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh; /*asegura que siempre ocupe al menos la altura de la ventana*/
 }
 
 h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  z-index: 2;
-  position: relative;
-  font-family: cursive;
-  transition: color 0.3s ease; 
+    font-size: 3rem;
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
+    font-family: cursive;
+    transition: color 0.3s ease; 
 }
 
 h1:hover {
-  color: #ff9eb5; 
+    color: #ff9eb5; 
 }
 
 header::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
-  z-index: 1;
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
 }
 
 nav {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 0 60px;
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  z-index: 1000;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px); 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 60px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px); 
 }
 
 nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  padding: 20px 15px;
-  transition: all 0.3s ease;
-  display: block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 20px 15px;
+    transition: all 0.3s ease;
+    display: block;
 }
 
 nav ul li a:hover {
-  background-color: #ffb6c1;
-  color: #000;
+    background-color: #ffb6c1;
+    color: #000;
 }
 
 .boton-rojo {
-  position: absolute;
-  right: 0;  
-  top: 0;
-  background-color: #eb9fa4;
-  color: #fff;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 20px 25px;
-  height: 100%;          /*cubre toda la altura del navbar*/
-  display: flex;
-  align-items: center;  
-  border-radius: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  transition: background 0.3s ease;
+    position: absolute;
+    right: 0;  
+    top: 0;
+    background-color: #eb9fa4;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 20px 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;  
+    border-radius: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background 0.3s ease;
 }
 
-/*hover del botón para ponerlo mas oscurito al pasar cursor*/
 .boton-rojo:hover {
-  background-color: #b11060;
-  color: #fff;
+    background-color: #b11060;
+    color: #fff;
 }
 
-/*pie de página*/
+.formulario-reservas {
+    position: absolute;
+    bottom: -10px; /*posiciona el cuadro para que se solape con la seccion siguiente*/
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: #333;
+    transition: all 0.3s ease;
+    z-index: 50; /*este es para que quede por encima del contenido de abajo*/
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #777;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    font-size: 16px;
+}
+
+.tab-btn.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.best-rate {
+    color: #555;
+    font-size: 14px;
+}
+
+.best-rate span {
+    font-weight: bold;
+    color: #000;
+}
+
+.form-fields {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+}
+
+.form-input::placeholder {
+    color: #aaa;
+}
+
+.form-input select,
+select.form-input {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.form-input option {
+    padding: 8px;
+    color: #333;
+}
+
+.form-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.formulario-reservas.is-sticky {
+    position: fixed;
+    top: 60px; /* Asegura que este valor sea el que necesitas */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%; 
+    max-width: 900px;
+    padding: 10px; 
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 100; 
+    background-color: white; 
+}
+
+.formulario-reservas.is-sticky .info-bar {
+    display: none; /*oculta la barra de informacion cuando esta fijo*/
+}
+
+.formulario-reservas.is-sticky .tabs {
+    margin-bottom: 10px;
+    border-bottom: none;
+}
+
+.formulario-reservas.is-sticky .tab-btn {
+    padding: 5px 10px; 
+    font-size: 13px; 
+}
+
+.formulario-reservas.is-sticky .form-fields {
+    flex-wrap: nowrap; /*asegura que los campos esten en una fila*/
+    gap: 5px; /*espacio reducido entre campos*/
+    margin-bottom: 0; 
+}
+
+.formulario-reservas.is-sticky .input-group,
+.formulario-reservas.is-sticky .form-button {
+    flex-grow: 1;
+    min-width: auto;
+}
+
+.formulario-reservas.is-sticky .form-input {
+    padding: 8px 10px;
+    font-size: 12px; 
+}
+
+.formulario-reservas.is-sticky .form-button {
+    padding: 8px 15px; 
+    font-size: 13px; 
+}
+
+@media (max-width: 768px) {
+    .formulario-reservas.is-sticky .form-fields {
+        flex-wrap: wrap;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.bienvenida-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 0;
+    margin-top: 0;
+}
+
+.bienvenida-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bienvenida-title {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.bienvenida-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    margin: 20px auto;
+    border-radius: 2px;
+}
+
+.bienvenida-quote {
+    font-size: 1.3rem;
+    color: #555;
+    line-height: 1.8;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/*seccion quienes somos*/
+.quienes-somos-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.quienes-somos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.quienes-somos-section .section-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 600;
+    position: relative;
+}
+
+.quienes-somos-section .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    width: 40px;
+    height: 4px;
+    background: #ff6b6b;
+    border-radius: 2px;
+}
+
+.section-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 40px;
+    text-align: justify;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #4ecdc4;
+}
+
+.feature-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.feature-item span:last-child {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/*contenedor de media*/
+.media-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.media-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.media-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/*responsivo*/
+@media (max-width: 768px) {
+    .quienes-somos-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .bienvenida-title {
+        font-size: 2.2rem;
+    }
+    
+    .bienvenida-quote {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .media-image {
+        height: 250px;
+    }
+    
+    .features-list {
+        gap: 15px;
+    }
+    
+    .feature-item {
+        padding: 12px;
+    }
+}
+
+/*seccion de clientes*/
+#clientes {
+    background: linear-gradient(135deg, #e0b9de 0%, #c7e9f0 100%);
+    padding: 60px 20px;
+    margin: 40px auto;
+    border-radius: 15px;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#clientes h2 {
+    color: #777 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 50px !important;
+    font-weight: 300 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    position: static !important;
+}
+
+#clientes h2::before {
+    display: none !important;
+}
+
+.clientes-logos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.logo-item:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.logo-img {
+    max-width: 120px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(20%);
+    transition: all 0.3s ease;
+}
+
+.logo-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .clientes-logos {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    #clientes h2 {
+        font-size: 2rem;
+    }
+    
+    .logo-img {
+        max-width: 100px;
+        max-height: 65px;
+    }
+}
+
 footer {
-  background: #222;
-  color: #ccc;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
 }
