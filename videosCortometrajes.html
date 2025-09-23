@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Videos y Cortometrajes</title>
+    <link rel="stylesheet" href="videosCortometrajes.css">
 </head>
 <body>
     <nav>
@@ -17,5 +18,195 @@
             <li><a href="solicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
         </ul>
     </nav>
+        <main class="videos-main">
+            <section class="video-card">
+                <img src="https://static.wixstatic.com/media/3557bc_4abd06079eb645d5a339ec51ab01cd77~mv2.jpg/v1/fill/w_425,h_636,al_c,lg_1,q_80,enc_avif,quality_auto/degradado%252520probar_edited_edited.jpg" alt="Degradado probar" class="video-img">
+                <div class="video-info">
+                    <h2>UN MONSTRUO EN LA CIUDAD</h2>
+                    <p>CUENTO POR: MOISÉS PASCUAL.</p>
+                    <a href="https://www.youtube.com/watch?v=b1fmCUJfK_Q&amp;feature=youtu.be&amp;fbclid=IwAR1bkZ6esVxrshHUpgSLRRk6OHcDYbpynCmAb7xSre7NXSzw2DI8uEHv11I" target="_blank" class="video-link">Ver en YouTube</a>
+                    <video controls poster="https://static.wixstatic.com/media/3557bc_4ab0a1fca9304b8a8011a39b9043267c~mv2.jpg/v1/fill/w_244,h_405,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/3557bc_4ab0a1fca9304b8a8011a39b9043267c~mv2.jpg" class="video-player">
+                        <source src="https://video.wixstatic.com/video/3557bc_d528374850bb498782adfce0adc81620/144p/mp4/file.mp4" type="video/mp4">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+            </section>
+            <section class="video-card">
+                <img src="https://static.wixstatic.com/media/3557bc_389f493ea79941c185115d599ee80f52~mv2.png/v1/fill/w_319,h_195,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/probar%2520con%2520este_edited.png" alt="probar con este" class="video-img">
+                <div class="video-info">
+                    <h2>¿Por qué las tortugas tienen caparazón?</h2>
+                    <p>Contado por: Irene De Delgado.</p>
+                    <a href="https://www.instagram.com/aplijpanama/" target="_blank" class="video-link">Ver en Instagram</a>
+                    <video controls poster="https://static.wixstatic.com/media/3557bc_ba826a30008b4436b96f36dd72650012f000.jpg/v1/fill/w_240,h_395,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/3557bc_ba826a30008b4436b96f36dd72650012f000.jpg" class="video-player">
+                        <source src="https://video.wixstatic.com/video/3557bc_ba826a30008b4436b96f36dd72650012/480p/mp4/file.mp4" type="video/mp4">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+            </section>
+        </main>
+
+        <style>
+        .videos-main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .video-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+        .video-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .video-img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        .video-info {
+            width: 100%;
+            text-align: center;
+        }
+        .video-info h2 {
+            font-size: 1.3rem;
+            color: #b71c1c;
+            margin-bottom: 0.5rem;
+        }
+        .video-info p {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .video-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #fff;
+            background: #b71c1c;
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .video-link:hover {
+            background: #222;
+        }
+        .video-player {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        </style>
+
+        <section class="cuentos-main">
+            <h1 class="cuentos-title">Cuentos infantiles</h1>
+            <div class="cuentos-list">
+                <div class="cuento-card">
+                    <img src="https://static.wixstatic.com/media/3557bc_da1dbff52f8842e3a548fec86724e6aa~mv2.jpg/v1/fill/w_442,h_255,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/portada_Ni%C3%83%C2%B1a_Bonita.jpg" alt="La niña bonita" class="cuento-img">
+                    <div class="cuento-info">
+                        <h2>La niña bonita</h2>
+                        <p>Autor: Irene De Delgado</p>
+                        <a href="https://www.youtube.com/watch?v=e43G1GKZY14&t=40s" target="_blank" class="cuento-link">Ver en YouTube</a>
+                    </div>
+                </div>
+                <div class="cuento-card">
+                    <img src="https://static.wixstatic.com/media/3557bc_dd945cd8c87c486bbda4e2c741df9e4a~mv2.png/v1/fill/w_396,h_225,al_c,lg_1,q_85,enc_avif,quality_auto/3557bc_dd945cd8c87c486bbda4e2c741df9e4a~mv2.png" alt="Tucutuflis" class="cuento-img">
+                    <div class="cuento-info">
+                        <h2>Cuento infantil Tucutuflis</h2>
+                        <p>Vídeo narrado por: María Vizcaya</p>
+                        <a href="https://video.wixstatic.com/video/3557bc_0e18b04a2c2c46c8b5ed56c4f4a6a7c5/360p/mp4/file.mp4" target="_blank" class="cuento-link">Ver video</a>
+                    </div>
+                </div>
+                <div class="cuento-card">
+                    <img src="https://static.wixstatic.com/media/3557bc_100ea37b0be7456483c3bb4955493aea~mv2.jpg/v1/fill/w_375,h_275,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/portada%2520original_edited.jpg" alt="Pitongo" class="cuento-img">
+                    <div class="cuento-info">
+                        <h2>Pitongo, el perro vaquero</h2>
+                        <p>Autor: Desconocido</p>
+                        <a href="https://www.youtube.com/watch?v=fOyqlXsEArU" target="_blank" class="cuento-link">Ver en YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+        .cuentos-main {
+            margin: 3rem auto 2rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+        .cuentos-title {
+            text-align: center;
+            color: #b71c1c;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .cuentos-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .cuento-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 350px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.2rem;
+            transition: box-shadow 0.2s;
+        }
+        .cuento-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .cuento-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        .cuento-info {
+            width: 100%;
+            text-align: center;
+        }
+        .cuento-info h2 {
+            font-size: 1.1rem;
+            color: #b71c1c;
+            margin-bottom: 0.5rem;
+        }
+        .cuento-info p {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .cuento-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #fff;
+            background: #b71c1c;
+            padding: 0.4rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .cuento-link:hover {
+            background: #222;
+        }
+        </style>
 </body>
 </html>
