@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador</title>
+  <link rel="stylesheet" href="menuAdmin.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="#" onclick="mostrarSeccion('inicio')">Inicio</a></li>
+        <li><a href="GestionarMiembro.html" onclick="mostrarSeccion('membresias')">Membresías</a></li>
+        <li><a href="#" onclick="mostrarSeccion('talleres')">Talleres</a></li>
+        <li><a href="#" onclick="mostrarSeccion('libros')">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <!-- Sección Inicio -->
+      <section id="inicio" class="seccion activa">
+        <h1>Resumen General</h1>
+        <div class="cards">
+          <div class="card">Solicitudes Pendientes: <span id="solPend">5</span></div>
+          <div class="card">Solicitudes Aceptadas: <span id="solAcep">12</span></div>
+          <div class="card">Libros Disponibles: <span id="libros">30</span></div>
+          <div class="card">Talleres Disponibles: <span id="talleres">3</span></div>
+        </div>
+      </section>
+
+      <!-- Sección Membresías -->
+      <section id="membresias" class="seccion">
+        <h1>Gestión de Membresías</h1>
+        <p>Aquí podrás gestionar las solicitudes de membresías.</p>
+      </section>
+
+      <!-- Sección Talleres -->
+      <section id="talleres" class="seccion">
+        <h1>Gestión de Talleres</h1>
+        <p>Aquí podrás gestionar los talleres disponibles.</p>
+      </section>
+
+      <!-- Sección Libros -->
+      <section id="libros" class="seccion">
+        <h1>Gestión de Libros</h1>
+        <p>Aquí podrás gestionar los libros.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="MenuAdmin.js"></script>
+</body>
+</html>

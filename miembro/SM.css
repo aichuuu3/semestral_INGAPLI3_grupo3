@@ -1,0 +1,81 @@
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url(../img/img2.jpg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .contenedor {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 500px;
+    }
+    .formulario {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+      align-items: start;
+    }
+    .formulario label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .formulario input[type="text"],
+    .formulario input[type="email"],
+    .formulario input[type="tel"] {
+      width: 60%; /*tamaño de text*/
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .foto {
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 15px;
+    }
+    .foto img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1px;
+    }
+    .foto input[type="file"] {
+      display: none;
+    }
+    .btn-subir {
+      background: #ddd;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .boton-enviar {
+      grid-column: span 2;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .boton-enviar button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #D84D4A;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .boton-enviar button:hover {
+      background: #FA6219;
+    }
+    .mensaje {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      color: green;
+      display: none;
+    }
