@@ -153,30 +153,21 @@
     </footer>
 
     <script>
-    window.addEventListener('scroll', function() {
-        const widget = document.getElementById('booking-widget');
-        const triggerElement = document.getElementById('bienvenida-section');
+        window.addEventListener('scroll', function() {
+            const widget = document.getElementById('booking-widget');
+            const triggerElement = document.getElementById('bienvenida-section');
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const scrollPosition = window.scrollY;
 
-        console.log('Posición de Scroll:', window.scrollY);
+            // El punto de activación será la parte superior de la sección de bienvenida
+            const widgetTriggerPosition = triggerElement.offsetTop - navHeight;
 
-        if (!widget) {
-            console.log('ERROR: El formulario no tiene el ID "booking-widget"');
-        }
-
-        if (!triggerElement) {
-            console.log('ERROR: La sección de bienvenida no tiene el ID "bienvenida-section"');
-        } else {
-            console.log('Posición del punto de activación:', triggerElement.offsetTop);
-        }
-
-        if (widget && triggerElement && window.scrollY > triggerElement.offsetTop) {
-            console.log('¡CONDICIÓN DE SCROLL CUMPLIDA! Agregando la clase "is-sticky".');
-            widget.classList.add('is-sticky');
-        } else if (widget) {
-            console.log('CONDICIÓN DE SCROLL NO CUMPLIDA. Removiendo la clase "is-sticky".');
-            widget.classList.remove('is-sticky');
-        }
-    });
-</script>
+            if (scrollPosition > widgetTriggerPosition) {
+                widget.classList.add('is-sticky');
+            } else {
+                widget.classList.remove('is-sticky');
+            }
+        });
+    </script>
 </body>
 </html>
