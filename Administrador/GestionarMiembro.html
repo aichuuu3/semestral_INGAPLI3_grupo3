@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="GM.css">
+  
+  <title>Admin - Solicitudes</title>
+</head>
+<body>
+  <div class="container">
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="#">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <div class="form-container">
+        <!-- Cédula (solo consulta) -->
+        <div class="form-group">
+          <label for="cedula">Cédula</label>
+          <input type="text" id="cedula" placeholder="0-0000-0000">
+          <button type="button">Consultar</button>
+        </div>
+
+        <!-- Foto -->
+        <div class="form-group">
+          <label for="foto">Foto</label>
+          <input type="file" id="foto">
+          <button type="button">Agregar</button>
+        </div>
+
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Juan Pérez">
+          <button type="button">Consultar</button>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" placeholder="0000-0000">
+          <button type="button">Actualizar</button>
+        </div>
+
+        <!-- Correo -->
+        <div class="form-group">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" placeholder="correo@ejemplo.com">
+        </div>
+
+        <!-- Estado -->
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select id="estado">
+            <option>Activo</option>
+            <option>Inactivo</option>
+          </select>
+        </div>
+
+        <!-- Botón cancelar -->
+        <button class="cancelar">Cancelar</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="GestionarMiembro.js"></script>
+</body>
+</html>

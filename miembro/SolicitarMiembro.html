@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="SM.css">
+
+  <title>Solicitud de Membresía</title>
+</head>
+<body>
+
+  <div class="contenedor">
+    <form id="miFormulario" class="formulario">
+      <!-- Columna izquierda -->
+      <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" required>
+
+        <label for="cedula">Cédula</label>
+        <input type="text" id="cedula" required>
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" required>
+
+        <label for="correo">E-mail</label>
+        <input type="email" id="correo" required>
+      </div>
+
+      <!-- Columna derecha (foto) -->
+      <div class="foto">
+        <img id="preview" src="../img/foto.png" alt="Foto">
+        <br>
+        <label for="foto" class="btn-subir">Subir Foto</label>
+        <input type="file" id="foto" accept="image/*">
+      </div>
+
+      <!-- Botón enviar -->
+      <div class="boton-enviar">
+        <button type="submit">Enviar Solicitud</button>
+      </div>
+    </form>
+    <p class="mensaje" id="mensajeExito"> Solicitud enviada con éxito</p>
+  </div>
+
+  <script src="SolicitarMiembro.js"></script>
+</body>
+</html>
