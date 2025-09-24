@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador - Gestionar Libros</title>
+  <link rel="stylesheet" href="gestionarLibros.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="gestionarLibros.html">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <h1>Gestión de Libros</h1>
+      
+      <div class="main-layout">
+        <!-- Formulario para registrar libros -->
+        <div class="formulario-container">
+          <div class="formulario-header">
+            <button class="btn-regresar">REGRESAR</button>
+            <h2>INGRESE LOS DATOS</h2>
+          </div>
+          
+          <form class="formulario-libro">
+            <div class="form-group">
+              <label>TÍTULO</label>
+              <input type="text" placeholder="Título del libro">
+            </div>
+            
+            <div class="form-group">
+              <label>AUTOR</label>
+              <input type="text" placeholder="Autor del libro">
+            </div>
+            
+            <div class="form-group">
+              <label>ISBN</label>
+              <input type="text" placeholder="ISBN del libro">
+            </div>
+            
+            <div class="form-group">
+              <label>CANTIDAD</label>
+              <input type="number" placeholder="Cantidad disponible" min="0">
+            </div>
+            
+            <div class="form-group">
+              <label>GÉNERO</label>
+              <select>
+                <option value="">Seleccionar género</option>
+                <option value="infantil">Literatura Infantil</option>
+                <option value="juvenil">Literatura Juvenil</option>
+                <option value="poesia">Poesía</option>
+                <option value="cuento">Cuento</option>
+                <option value="novela">Novela</option>
+              </select>
+            </div>
+            
+            <button type="submit" class="btn-crear">Crear</button>
+          </form>
+        </div>
+
+        <!-- Tabla de libros -->
+        <div class="tabla-container">
+          <h2>Lista de Libros</h2>
+          <div class="tabla-scroll">
+            <table class="tabla-libros">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Autor</th>
+                  <th>ISBN</th>
+                  <th>Cantidad</th>
+                  <th>Género</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>001</td>
+                  <td>El Principito</td>
+                  <td>Antoine de Saint-Exupéry</td>
+                  <td>978-0156012195</td>
+                  <td>5</td>
+                  <td>Literatura Infantil</td>
+                  <td><span class="estado activo">Disponible</span></td>
+                  <td>
+                    <button class="btn-editar">Editar</button>
+                    <button class="btn-eliminar">Eliminar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Matilda</td>
+                  <td>Roald Dahl</td>
+                  <td>978-0142410370</td>
+                  <td>3</td>
+                  <td>Literatura Juvenil</td>
+                  <td><span class="estado activo">Disponible</span></td>
+                  <td>
+                    <button class="btn-editar">Editar</button>
+                    <button class="btn-eliminar">Eliminar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>Cuentos de la Selva</td>
+                  <td>Horacio Quiroga</td>
+                  <td>978-9875663510</td>
+                  <td>0</td>
+                  <td>Cuento</td>
+                  <td><span class="estado inactivo">No Disponible</span></td>
+                  <td>
+                    <button class="btn-editar">Editar</button>
+                    <button class="btn-eliminar">Eliminar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>004</td>
+                  <td>Donde Viven los Monstruos</td>
+                  <td>Maurice Sendak</td>
+                  <td>978-0064431781</td>
+                  <td>2</td>
+                  <td>Literatura Infantil</td>
+                  <td><span class="estado activo">Disponible</span></td>
+                  <td>
+                    <button class="btn-editar">Editar</button>
+                    <button class="btn-eliminar">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

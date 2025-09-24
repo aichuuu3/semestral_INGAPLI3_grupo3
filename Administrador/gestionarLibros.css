@@ -49,6 +49,7 @@ body {
   background: #34495e;
 }
 
+/* Contenido principal */
 .content {
   flex: 1;
   padding: 30px;
@@ -63,6 +64,7 @@ body {
   font-size: 2.5rem;
 }
 
+/* Layout de dos columnas */
 .main-layout {
   display: flex;
   gap: 30px;
@@ -86,6 +88,17 @@ body {
   margin-bottom: 20px;
 }
 
+.btn-regresar {
+  background: #95a5a6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+}
+
 .formulario-header h2 {
   color: #2c3e50;
   margin: 0;
@@ -105,7 +118,7 @@ body {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -114,9 +127,9 @@ body {
   box-sizing: border-box;
 }
 
-.form-group textarea {
-  height: 80px;
-  resize: vertical;
+.form-group select {
+  background: white;
+  cursor: pointer;
 }
 
 .btn-crear {
@@ -157,14 +170,14 @@ body {
   border-radius: 8px;
 }
 
-.tabla-talleres {
+.tabla-libros {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 900px;
   font-size: 13px;
 }
 
-.tabla-talleres th {
+.tabla-libros th {
   background: #34495e;
   color: white;
   padding: 12px;
@@ -173,12 +186,12 @@ body {
   font-size: 12px;
 }
 
-.tabla-talleres td {
+.tabla-libros td {
   padding: 10px 12px;
   border-bottom: 1px solid #ecf0f1;
 }
 
-.tabla-talleres tbody tr:hover {
+.tabla-libros tbody tr:hover {
   background: #f8f9fa;
 }
 
