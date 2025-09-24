@@ -117,8 +117,81 @@ nav ul li a:hover {
 }
 
 .boton-rojo:hover {
-    background-color: #b11060;
+    background-color: #7de4fe;
     color: #fff;
+}
+
+.boletines-flex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+@media (max-width: 900px) {
+  .boletines-flex {
+    grid-template-columns: 1fr;
+  }
+}
+
+:root {
+  --boletin-anio-bg: #fcc9ce; /* Cambia este color a tu preferido */
+  --boletin-anio-bg-hover: #d0e6ff;
+}
+.boletin-anio {
+  background: var(--boletin-anio-bg) !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  min-width: 220px;
+  max-width: 260px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem 1rem 1.5rem 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.boletin-anio:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  background: var(--boletin-anio-bg-hover);
+}
+.boletin-anio-titulo {
+  font-size: 1.5rem;
+  color: #b71c1c;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.boletin-meses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.boletin-mes {
+  display: inline-block;
+  color: #fff;
+  background: #b71c1c;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  transition: background 0.2s;
+}
+.boletin-mes:hover {
+  background: #222;
+}
+@media (max-width: 900px) {
+  .boletines-flex {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .boletin-anio {
