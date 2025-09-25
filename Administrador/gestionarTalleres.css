@@ -12,40 +12,27 @@ body {
   min-height: 100vh;
 }
 
-/* Barra lateral */
-.sidebar {
-  width: 350px;
-  background: #2c3e50;
-  color: white;
+.content {
+  flex: 1;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 1.5rem;
-}
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
-.sidebar ul li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding: 15px 20px;
+.tabla-scroll {
+  overflow-x: auto;
   border-radius: 8px;
-  transition: background 0.3s;
-  font-size: 1.1rem;
 }
 
-.sidebar ul li a:hover {
+.tabla-talleres {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+  font-size: 13px;
+}
+
+.tabla-talleres th {
   background: #34495e;
 }
 
@@ -240,14 +227,10 @@ body {
   }
 }
 
+/*Responsive*/
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-  }
-  
-  .sidebar {
-    width: 100%;
-    padding: 20px;
   }
   
   .content {
