@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_mysqldb import MySQL
 from flask_restx import Api
+from flask_cors import CORS
 from config import DB_CONFIG
 from usuario import crearUsuario
 from tipoUsuario import crearTipoUsuario
@@ -13,6 +14,7 @@ from miembro import crearMiembro
 app = Flask(__name__)
 app.config.update(DB_CONFIG)
 mysql = MySQL(app)
+CORS(app)
 
 api = Api(app, doc='/docs/', title='API APLJ',
           description='API para gestión de usuarios, talleres y libros')

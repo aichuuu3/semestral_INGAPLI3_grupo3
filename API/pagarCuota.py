@@ -80,4 +80,20 @@ def crearPago(mysql):
             cur.close()
             return {'mensaje': 'Pago eliminado correctamente'}
 
+    @api.route('/usuario/<int:idMiembro>/anio/<int:anio>')
+    class PagosPorUsuarioAnio(Resource):
+        def get(self, idMiembro, anio):
+            cur = mysql.connection.cursor()
+            cur.execute("""
+                SELECT idPago, fechaPago, monto 
+                FROM pagarcuota 
+                WHERE idMiembro = %s AND YEAR(fechaPago) = %s
+            """, (idMiembro, anio))
+            pagos = cur.fetchall()
+            cur.close()
+            return [
+                {'idPago': p[0], 'fechaPago': str(p[1]), 'monto': float(p[2])}
+                for p in pagos
+            ]
+
     return api

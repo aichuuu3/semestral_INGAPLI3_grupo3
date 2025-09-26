@@ -1,3 +1,13 @@
-flask==2.3.3
+Usage: flask run [OPTIONS]
+Try 'flask run --help' for help.
+
+Error: While importing 'app', an ImportError was raised:
+
+Traceback (most recent call last):
+  File "C:\Users\edgju\myproject\.venv\Lib\site-packages\flask\cli.py", line 245, in locate_app
+    __import__(module_name)
+  File "C:\Users\edgju\AndroidStudioProjects\semestral_INGAPLI3_grupo3\API\app.py", line 2, in <module>
+    from flask_mysqldb import MySQL
+ModuleNotFoundError: No module named 'flask_mysqldb'flask==2.3.3
 flask-mysqldb==1.0.1
 flask-restx==1.2.0
