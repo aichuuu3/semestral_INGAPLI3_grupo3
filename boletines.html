@@ -15,7 +15,7 @@
             <li><a href="talleres.html">Talleres</a></li>
             <li><a href="programas.html">Programas Radiales</a></li>
             <li><a href="contactanos.html">Contáctanos</a></li>
-            <li><a href="solicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
+            <li><a href="#" id="btnSolicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
         </ul>
     </nav>
     <div class="boletines-flex">
@@ -60,5 +60,16 @@
         </div>
       </div>
     </div>
+
+    <!-- MODAL PARA SOLICITAR MEMBRESÍA -->
+    <div id="modalMembresia" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="formulario-container">
+                <div class="loading">Cargando formulario...</div>
+            </div>
+        </div>
+    </div>
+    <script src="miembro/SolicitarMiembro.js"></script>  
 </body>
 </html>

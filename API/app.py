@@ -13,20 +13,24 @@ from miembro import crearMiembro
 
 app = Flask(__name__)
 app.config.update(DB_CONFIG)
+
+# Habilitar CORS
+CORS(app)
+
 mysql = MySQL(app)
 CORS(app)
 
 api = Api(app, doc='/docs/', title='API APLJ',
           description='API para gestión de usuarios, talleres y libros')
 
-#namespace para cada endpoint
+# Namespaces
 api.add_namespace(crearUsuario(mysql), path='/usuarios')
 api.add_namespace(crearTipoUsuario(mysql), path='/tipoUsuario')
 api.add_namespace(crearTallercito(mysql), path='/talleres')
 api.add_namespace(crearLibro(mysql), path='/libro')
 api.add_namespace(crearMembresia(mysql), path='/membresia')
 api.add_namespace(crearPago(mysql), path='/pagarCuota')
-api.add_namespace(crearMiembro(mysql), path='/miembro')
+api.add_namespace(crearMiembro(mysql), path='/miembro')  
 
 if __name__ == '__main__':
     app.run(debug=True)
