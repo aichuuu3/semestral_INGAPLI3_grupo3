@@ -14,17 +14,17 @@ html, body {
 body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #fff;
+    color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /*evita scroll horizontal*/
+    overflow-x: hidden;
+    background-color: #f5f5f5;
 }
 
 header {
     position: relative;
     height: 100vh;
-    width: 100vw; 
-    background: url('img/imagen2.png') no-repeat center center;
+    width: 100vw;
     background-size: cover;
     background-attachment: fixed; 
     display: flex;
@@ -32,7 +32,7 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh; /*asegura que siempre ocupe al menos la altura de la ventana*/
+    min-height: 100vh;
 }
 
 h1 {
@@ -103,8 +103,8 @@ nav ul li a:hover {
     position: absolute;
     right: 0;  
     top: 0;
-    background-color: #eb9fa4;
-    color: #fff;
+    background-color: #eb9fa4 !important;
+    color: #fff !important;
     font-weight: 700;
     text-transform: uppercase;
     padding: 20px 25px;
@@ -114,118 +114,236 @@ nav ul li a:hover {
     border-radius: 0;
     font-family: Arial, Helvetica, sans-serif;
     transition: background 0.3s ease;
+    text-decoration: none;
 }
 
 .boton-rojo:hover {
-    background-color: #7de4fe;
-    color: #fff;
+    background-color: #7de4fe !important;
+    color: #fff !important;
 }
 
+/* ESTILOS PARA LOS BOLETINES */
 .boletines-flex {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  justify-items: center;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-@media (max-width: 900px) {
-  .boletines-flex {
-    grid-template-columns: 1fr;
-  }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    align-items: start;
+    padding: 100px 20px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
 }
 
-:root {
-  --boletin-anio-bg: #fcc9ce; /* Cambia este color a tu preferido */
-  --boletin-anio-bg-hover: #d0e6ff;
-}
-.boletin-anio {
-  background: var(--boletin-anio-bg) !important;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  min-width: 220px;
-  max-width: 260px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.2rem 1rem 1.5rem 1rem;
-  margin-bottom: 1rem;
-  transition: box-shadow 0.2s, background 0.2s;
-}
-.boletin-anio:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  background: var(--boletin-anio-bg-hover);
-}
-.boletin-anio-titulo {
-  font-size: 1.5rem;
-  color: #b71c1c;
-  margin-bottom: 1rem;
-  font-weight: bold;
-}
-.boletin-meses {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-}
-.boletin-mes {
-  display: inline-block;
-  color: #fff;
-  background: #b71c1c;
-  padding: 0.4rem 1rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-  transition: background 0.2s;
-}
-.boletin-mes:hover {
-  background: #222;
-}
 @media (max-width: 900px) {
-  .boletines-flex {
+    .boletines-flex {
+        grid-template-columns: 1fr;
+        padding: 120px 20px 50px;
+    }
+}
+
+.boletin-anio {
+    background: #fcc9ce;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 320px;
+    min-height: 400px;
+    display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    padding: 25px 20px;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
 }
 
-.boletin-anio {
-          margin: 30px 0 20px 0;
-          padding: 20px;
-          background: #f7f7f7;
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-          max-width: 600px;
-        }
-        .boletin-anio-titulo {
-          font-family: 'Fredericka the Great', fantasy, cursive;
-          font-size: 2rem;
-          color: #222;
-          margin-bottom: 10px;
-          text-align: left;
-        }
-        .boletin-meses {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .boletin-mes {
-          display: inline-block;
-          padding: 8px 18px;
-          background: #e0e0e0;
-          border-radius: 6px;
-          color: #222;
-          text-decoration: none;
-          font-family: 'DIN Neuzeit Grotesk', Arial, sans-serif;
-          font-size: 1rem;
-          transition: background 0.2s, color 0.2s;
-        }
-        .boletin-mes:hover {
-          background: #b71c1c;
-          color: #fff;
-        }
+.boletin-anio-titulo {
+    font-size: 2.2rem;
+    color: #b71c1c;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    z-index: 2;
+    position: relative;
+}
+
+.boletin-meses {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.boletin-mes {
+    display: block;
+    color: #333;
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    border: 2px solid #b71c1c;
+    position: relative;
+}
+
+.boletin-mes:hover {
+    background: #ffffff;
+    color: #333;
+}
+
+/* Efecto especial para el último mes de cada año */
+.boletin-mes:last-child {
+    grid-column: span 2;
+    background: #87ceeb;
+    border: 2px solid #5f9ea0;
+}
+
+.boletin-mes:last-child:hover {
+    background: #87ceeb;
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+    .boletin-anio {
+        max-width: 100%;
+        min-height: 350px;
+        padding: 20px 15px;
+    }
+    
+    .boletin-anio-titulo {
+        font-size: 1.8rem;
+    }
+    
+    .boletin-mes {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+    .boletines-flex {
+        padding: 100px 15px 30px;
+        gap: 1.5rem;
+    }
+    
+    .boletin-meses {
+        grid-template-columns: 1fr;
+    }
+    
+    .boletin-mes:last-child {
+        grid-column: span 1;
+    }
+}
+
+/* Estilos para el modal - NO TOCAR */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 2% auto;
+    padding: 20px;
+    border: none;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    max-height: 95vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close {
+    color: #999;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 10000;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    color: #b71c1c;
+    background-color: #f0f0f0;
+}
+
+.loading {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #666;
+}
+
+#formulario-container .contenedor {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(5px);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Agregar al final de inicio.css */
+.modal {
+    font-family: inherit !important;
+}
+
+.modal * {
+    font-family: inherit !important;
+}
+
+/* Forzar que el widget mantenga sus estilos originales */
+#booking-widget,
+#booking-widget * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+/* Restaurar estilos del body después del modal */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}

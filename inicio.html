@@ -14,7 +14,7 @@
             <li><a href="talleres.html">Talleres</a></li>
             <li><a href="programas.html">Programas Radiales</a></li>
             <li><a href="contactanos.html">Contáctanos</a></li>
-            <li><a href="solicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
+            <li><a href="#" id="btnSolicitar" class="boton-rojo">SOLICITAR SER MIEMBRO</a></li>
         </ul>
     </nav>
     
@@ -74,7 +74,7 @@
         </div>
     </header>
 
-    <!-- Sección de Bienvenida Mejorada -->
+    <!--sección de Bienvenida-->
     <section class="bienvenida-section">
         <div class="container">
             <div class="bienvenida-content">
@@ -86,7 +86,7 @@
         </div>
     </section>
     
-    <!-- Sección Quiénes Somos con Video -->
+    <!--sección Quiénes Somos -->
     <section class="quienes-somos-section">
         <div class="container">
             <div class="quienes-somos-grid">
@@ -152,14 +152,23 @@
         <p>Personería Jurídica Resolución 176-JP - 1333 del 31 de mayo 2013.</p>
     </footer>
 
+    <!-- MODAL PARA SOLICITAR MEMBRESÍA -->
+    <div id="modalMembresia" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="formulario-container">
+                <div class="loading">Cargando formulario...</div>
+            </div>
+        </div>
+    </div>
+    <script src="miembro/SolicitarMiembro.js"></script>
+
     <script>
         window.addEventListener('scroll', function() {
             const widget = document.getElementById('booking-widget');
             const triggerElement = document.getElementById('bienvenida-section');
             const navHeight = document.querySelector('nav').offsetHeight;
             const scrollPosition = window.scrollY;
-
-            // El punto de activación será la parte superior de la sección de bienvenida
             const widgetTriggerPosition = triggerElement.offsetTop - navHeight;
 
             if (scrollPosition > widgetTriggerPosition) {
