@@ -18,7 +18,7 @@ function generarInforme(idMiembro) {
   const resultado = document.getElementById('resultadoInforme');
   resultado.innerHTML = '<p>Generando informe...</p>';
 
-  fetch('http://127.0.0.1:5000/pagarCuota/usuario/1/anio/2025')
+  fetch(`http://127.0.0.1:5000/pagarCuota/usuario/${idMiembro}/anio/${anio}`)
     .then(async response => {
       if (!response.ok) {
         const errorText = await response.text();
