@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador</title>
+  <link rel="stylesheet" href="menuAdmin.css">
+  <link rel="stylesheet" href="../sidebar.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html" onclick="mostrarSeccion('inicio')">Inicio</a></li>
+        <li><a href="GestionarMiembro.html" onclick="mostrarSeccion('membresias')">Membresías</a></li>
+        <li><a href="gestionarTalleres.html" onclick="mostrarSeccion('talleres')">Talleres</a></li>
+        <li><a href="gestionarLibros.html" onclick="mostrarSeccion('libros')">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <!-- Sección Inicio -->
+      <section id="inicio" class="seccion activa">
+        <h1>Resumen General</h1>
+        <div class="cards">
+          <div class="card">Solicitudes Pendientes: <span id="solPend"></span></div>
+          <div class="card">Solicitudes Aceptadas: <span id="solAcep"></span></div>
+          <div class="card">Libros Disponibles: <span id="libros"></span></div>
+          <div class="card">Talleres Disponibles: <span id="talleres"></span></div>
+        </div>
+      </section>
+
+  <script src="menuAdmin.js"></script>
+</body>
+</html>

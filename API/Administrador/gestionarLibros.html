@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador - Gestionar Libros</title>
+  <link rel="stylesheet" href="gestionarLibros.css">
+  <link rel="stylesheet" href="../sidebar.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="gestionarLibros.html">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <h1>Gestión de Libros</h1>
+
+      <!-- Botón para agregar nuevo libro -->
+      <div class="acciones">
+        <button onclick="location.href='crearLibro.html'" class="btn-agregar">
+          📚 Agregar Nuevo Libro
+        </button>
+      </div>
+
+      <!-- Tabla de libros -->
+      <div class="tabla-container">
+        <div class="tabla-scroll">
+          <table class="tabla-libros">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Cantidad</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-libros-body">
+              <!-- Se llenará dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="gestionarLibros.js"></script>
+</body>
+</html>
