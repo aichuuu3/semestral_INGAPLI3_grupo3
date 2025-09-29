@@ -83,4 +83,20 @@ def crearTallercito(mysql):
             cur.close()
             return {'mensaje': 'Taller eliminado correctamente'}
 
+    @api.route('/tipo/<int:idTaller>')
+    class TipoTaller(Resource):
+        def get(self, idTaller):
+            """Obtener el tipo de taller por ID"""
+            try:
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT tipo FROM taller WHERE idTaller = %s", (idTaller,))
+                result = cur.fetchone()
+                cur.close()
+                if result:
+                    return {'idTaller': idTaller, 'tipo': result[0]}, 200
+                else:
+                    return {'mensaje': 'Taller no encontrado'}, 404
+            except Exception as e:
+                return {'error': f'Error en el servidor: {str(e)}'}, 500
+
     return api

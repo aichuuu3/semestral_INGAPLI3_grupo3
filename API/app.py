@@ -14,11 +14,7 @@ from miembro import crearMiembro
 app = Flask(__name__)
 app.config.update(DB_CONFIG)
 
-# Habilitar CORS
-CORS(app)
-
 mysql = MySQL(app)
-CORS(app)
 
 api = Api(app, doc='/docs/', title='API APLJ',
           description='API para gestión de usuarios, talleres y libros')
@@ -32,5 +28,31 @@ api.add_namespace(crearMembresia(mysql), path='/membresia')
 api.add_namespace(crearPago(mysql), path='/pagarCuota')
 api.add_namespace(crearMiembro(mysql), path='/miembro')  
 
+# Endpoint simple para probar la API
+@app.route('/test')
+def test():
+    return {'mensaje': 'API funcionando correctamente', 'status': 'OK'}
+
+# Endpoint para probar conexión a la base de datos
+@app.route('/test-db')
+def test_db():
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT 1")
+        result = cur.fetchone()
+        cur.close()
+        return {'mensaje': 'Conexión a la base de datos exitosa', 'status': 'OK'}
+    except Exception as e:
+        return {'error': f'Error de conexión a la base de datos: {str(e)}', 'status': 'ERROR'}, 500
+
+# Configurar CORS para permitir peticiones desde cualquier origen
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
