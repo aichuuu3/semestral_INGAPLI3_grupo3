@@ -10,7 +10,7 @@
     <div class="contenedor">
         <h2>Solicitar Membresía</h2>
         <h5>¿Ya eres miembro?, recuerda:</h5>
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit" id="iniciarSesionBtn">Iniciar Sesión</button>
         <br><br>
         <form id="miFormulario">
             <div class="campo">
@@ -32,11 +32,6 @@
             <div class="campo">
                 <label for="clave">Contraseña:</label>
                 <input type="password" id="clave" name="clave" required>
-            </div>
-            <div class="campo">
-                <label for="foto">Foto:</label>
-                <input type="file" id="foto" name="foto" accept="image/*">
-                <img id="preview" src="../img/foto.png" alt="Preview" style="width: 100px; height: 100px; object-fit: cover;">
             </div>
             <button type="submit">Enviar solicitud</button>
         </form>

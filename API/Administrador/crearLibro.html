@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador - Gestionar Libros</title>
+  <link rel="stylesheet" href="gestionarLibros.css">
+  <link rel="stylesheet" href="../sidebar.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="gestionarLibros.html">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <h1>Nuevo Libro</h1>
+      
+      <div class="main-layout">
+        <!-- Formulario para registrar libros -->
+        <div class="formulario-container">
+          <div class="formulario-header">
+            <h2>DATOS DE LIBRO</h2>
+          </div>
+          
+          <form id="form-libro" class="formulario-libro">
+            <div class="form-group">
+              <label>TÍTULO</label>
+              <input type="text" name="titulo" placeholder="Título del libro" required>
+            </div>
+            
+            <div class="form-group">
+              <label>AUTOR</label>
+              <input type="text" name="autor" placeholder="Autor del libro" required>
+            </div>
+            
+            <div class="form-group">
+              <label>ISBN</label>
+              <input type="text" name="isbn" placeholder="ISBN del libro" required>
+            </div>
+            
+            <div class="form-group">
+              <label>FECHA DE INGRESO</label>
+              <input type="date" name="fechaIngreso" required>
+            </div>
+            
+            <div class="form-group">
+              <label>CANTIDAD</label>
+              <input type="number" name="cantidad" placeholder="Cantidad disponible" min="0" required>
+            </div>
+            
+            <div class="form-group">
+              <label>CATEGORÍA</label>
+              <select name="categoria" required>
+                <option value="">Seleccionar categoría</option>
+                <option value="Infantil">Infantil</option>
+                <option value="Juvenil">Juvenil</option>
+                <option value="Cuento">Cuento</option>
+                <option value="Novela">Novela</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>ESTADO</label>
+              <select name="estado" required>
+                <option value="disponible">Disponible</option>
+                <option value="no disponible">No Disponible</option>
+              </select>
+            </div>
+          </form>
+
+          <!-- Botones debajo del formulario -->
+          <div class="form-buttons">
+            <button onclick="location.href='gestionarLibros.html'" class="btn-regresar">
+              Regresar
+            </button>
+            <button type="submit" form="form-libro" class="btn-crear">
+              Crear
+            </button>
+          </div>
+
+        </div>
+    </main>
+  </div>
+
+  <script src="crearLibro.js"></script>
+</body>
+</html>

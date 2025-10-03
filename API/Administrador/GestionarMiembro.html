@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="GM.css">
+  <link rel="stylesheet" href="../sidebar.css">
+  
+  <title>Admin - Solicitudes</title>
+</head>
+<body>
+  <div class="container">
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="gestionarLibros.html">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <div class="form-container">
+        <div class="solicitudes-section">
+          <h3>Gestión de Membresías</h3>
+          <div class="tabla-container">
+            <table class="tabla-solicitudes">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Estado Miembro</th>
+                        <th>Estado Solicitud</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se cargarán automáticamente con JavaScript -->
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px;">
+                            Cargando datos...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Cédula (solo consulta) -->
+        <div class="form-group">
+          <label for="cedula">Cédula</label>
+          <input type="text" id="cedula" placeholder="0-0000-0000">
+          <button type="button" id="btnConsultar">Consultar</button>
+        </div>
+
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Juan Pérez">
+          <button type="button" id="btnActualizar" class="actualizar">Actualizar Usuario</button>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" placeholder="0000-0000">
+        </div>
+
+        <!-- Correo -->
+        <div class="form-group">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" placeholder="correo@ejemplo.com">
+        </div>
+
+        <!-- Estado -->
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select id="estado">
+            <option value="">-- Seleccionar --</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aceptada">Aceptada</option>
+            <option value="Rechazada">Rechazada</option>
+          </select>
+        </div>
+
+        <!-- Botones -->
+        
+        <button class="cancelar">Cancelar</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="GestionarMiembro.js"></script>
+</body>
+</html>

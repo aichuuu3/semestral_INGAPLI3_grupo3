@@ -1,0 +1,194 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url(../img/ook.jpg);
+}
+
+/* Contenedor general */
+.container {
+  display: flex;
+  min-height: 200vh;
+}
+
+/* Contenido */
+.content {
+  flex: 1;
+  padding: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form-container {
+  background: white;
+  padding: 40px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  width: 800px;
+  max-width: 95%; /* Para que sea responsive */
+}
+
+.solicitudes-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.solicitudes-section h3 {
+  color: #004d26;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.tabla-container {
+  margin-top: 20px;
+  overflow-x: auto;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.tabla-solicitudes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  background: white;
+}
+
+.tabla-solicitudes th {
+  background: #004d26;
+  color: white;
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tabla-solicitudes td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+
+.tabla-solicitudes tr:hover {
+  background: #f8f9fa;
+}
+
+.tabla-solicitudes tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estados */
+.estado {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.estado.pendiente {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.estado.activo {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.estado.inactivo {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.tabla-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tabla-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.tabla-container::-webkit-scrollbar-thumb {
+  background: #004d26;
+  border-radius: 4px;
+}
+
+.tabla-container::-webkit-scrollbar-thumb:hover {
+  background: #007a3d;
+}
+
+/* Divisor */
+.divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #004d26, transparent);
+  margin: 25px 0;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  width: 100px;
+  font-weight: bold;
+}
+
+.form-group input, 
+.form-group select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.form-group button {
+  background: #004d26;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background: #007a3d;
+}
+
+.cancelar {
+  background: red;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn-recargar {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 14px;
+}
+
+.btn-recargar:hover {
+    background: #218838;
+}
+

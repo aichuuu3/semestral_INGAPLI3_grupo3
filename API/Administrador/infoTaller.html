@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Información del Taller</title>
+  <link rel="stylesheet" href="gestionarLibros.css">
+  <link rel="stylesheet" href="../sidebar.css">
+</head>
+<style>
+    .content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+<body>
+  <div class="container">
+    <!-- Barra lateral -->
+    <nav class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="MenuAdmin.html">Inicio</a></li>
+        <li><a href="GestionarMiembro.html">Membresías</a></li>
+        <li><a href="gestionarTalleres.html">Talleres</a></li>
+        <li><a href="gestionarLibros.html">Libros</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="content">
+      <h1>Editar Taller</h1>
+      
+      <!-- Formulario de edición -->
+      <div class="formulario-container">
+        <div class="formulario-header">
+          <h2>Datos del Taller</h2>
+        </div>
+        
+        <form id="form-taller" class="formulario-taller">
+          <div class="form-group">
+            <label for="nombre">Título</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Título del taller">
+          </div>
+          
+          <div class="form-group">
+            <label for="tipo">Categoría</label>
+            <select id="tipo" name="tipo">
+              <option value="">Seleccionar categoría</option>
+              <option value="Literatura">Literatura</option>
+              <option value="Práctico">Práctico</option>
+              <option value="Ciencia">Ciencia</option>
+              <option value="Arte">Arte</option>
+              <option value="Tecnología">Tecnología</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha">
+          </div>
+          
+          <div class="form-group">
+            <label for="hora">Hora</label>
+            <input type="time" id="hora" name="hora">
+          </div>
+          
+          <div class="form-group">
+            <label for="ubicacion">Lugar</label>
+            <input type="text" id="ubicacion" name="ubicacion" placeholder="Lugar del taller">
+          </div>
+          
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+              <option value="Activo">Activo</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="detalles">Detalles</label>
+            <textarea id="detalles" name="detalles" placeholder="Descripción del taller"></textarea>
+          </div>
+          
+          <button type="submit" class="btn-crear">Guardar</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="infoTaller.js"></script>
+</body>
+</html>

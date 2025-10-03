@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-image: url(../img/ook.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Contenido principal */
+.content {
+  flex: 1;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra todo el contenido horizontalmente */
+}
+
+/* Encabezado */
+.content h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+  z-index: 1;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px; /* limita el ancho para que no se estiren demasiado */
+  padding: 0 20px;
+  z-index: 1;
+}
+
+.card {
+  background: #ffffffd3; /* semi-transparente para que contraste con el fondo */
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(39, 192, 230, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  
+  .formulario-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .formulario-container {
+    margin: 0 0 20px;
+  }
+}
