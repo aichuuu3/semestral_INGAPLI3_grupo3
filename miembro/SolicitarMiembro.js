@@ -236,18 +236,103 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Función para procesar solicitud de registro válida
-    function procesarSolicitud(datos) {
+    async function procesarSolicitud(datos) {
         console.log('Procesando solicitud válida:', datos);
         
         const mensajeExito = document.getElementById('mensajeExito');
+        
         if (mensajeExito) {
-            mensajeExito.innerHTML = '¡Solicitud enviada correctamente! Pronto recibirás una respuesta.';
+            // Mostrar mensaje de procesando
+            mensajeExito.innerHTML = 'Enviando solicitud...';
+            mensajeExito.className = 'mensaje info';
             mensajeExito.style.display = 'block';
             
-            setTimeout(() => {
-                mensajeExito.style.display = 'none';
-                closeModal();
-            }, 3000);
+            try {
+                // Enviar solicitud a la API para registrar en la base de datos
+                const response = await fetch('http://localhost:5000/usuarios/solicitar-membresia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombre: datos.nombre,
+                        cedula: datos.cedula,
+                        telefono: datos.telefono,
+                        correo: datos.correo,
+                        clave: datos.clave,
+                        estado: 'Pendiente', // Estado inicial en espera
+                        fechaSolicitud: new Date().toISOString().split('T')[0] // Fecha actual
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && response.status === 201) {
+                    // Solicitud registrada exitosamente
+                    mensajeExito.innerHTML = `
+                        <div style="text-align: center; padding: 10px;">
+                            <h3 style="color: #4CAF50; margin: 0 0 10px 0;">¡Solicitud Enviada!</h3>
+                            <p style="margin: 5px 0;">Tu solicitud de membresía ha sido registrada exitosamente.</p>
+                            <p style="margin: 5px 0;"><strong>Estado:</strong> En espera de aprobación</p>
+                            <p style="margin: 5px 0; font-size: 14px; color: #666;">
+                                Recibirás una notificación cuando sea revisada por nuestro equipo administrativo.
+                            </p>
+                        </div>
+                    `;
+                    mensajeExito.className = 'mensaje success';
+                    
+                    // Cerrar modal después de 4 segundos
+                    setTimeout(() => {
+                        mensajeExito.style.display = 'none';
+                        closeModal();
+                    }, 4000);
+                    
+                } else {
+                    // Error en el registro
+                    let mensajeError = 'Error al procesar la solicitud';
+                    
+                    if (result.error) {
+                        mensajeError = result.error;
+                    } else if (response.status === 400) {
+                        mensajeError = 'Datos inválidos o incompletos';
+                    } else if (response.status === 409) {
+                        mensajeError = 'Ya existe un usuario con esa cédula o correo';
+                    }
+                    
+                    mensajeExito.innerHTML = `
+                        <div style="text-align: center; padding: 10px; color: #f44336;">
+                            <h3 style="margin: 0 0 10px 0;">Error en la Solicitud</h3>
+                            <p style="margin: 5px 0;">${mensajeError}</p>
+                            <p style="margin: 5px 0; font-size: 14px;">
+                                Por favor, verifica tus datos e intenta nuevamente.
+                            </p>
+                        </div>
+                    `;
+                    mensajeExito.className = 'mensaje error';
+                    
+                    setTimeout(() => {
+                        alert(mensajeError);
+                    }, 100);
+                }
+                
+            } catch (error) {
+                console.error('Error enviando solicitud:', error);
+                
+                mensajeExito.innerHTML = `
+                    <div style="text-align: center; padding: 10px; color: #f44336;">
+                        <h3 style="margin: 0 0 10px 0;">Error de Conexión</h3>
+                        <p style="margin: 5px 0;">No se pudo conectar con el servidor</p>
+                        <p style="margin: 5px 0; font-size: 14px;">
+                            Verifica tu conexión e intenta nuevamente.
+                        </p>
+                    </div>
+                `;
+                mensajeExito.className = 'mensaje error';
+                
+                setTimeout(() => {
+                    alert('Error de conexión: No se pudo conectar con la API');
+                }, 100);
+            }
         }
     }
     

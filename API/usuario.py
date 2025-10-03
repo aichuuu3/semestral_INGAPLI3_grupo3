@@ -284,4 +284,73 @@ def crearUsuario(mysql):
             except Exception as e:
                 return {'error': f'Error al eliminar usuario: {str(e)}'}, 500
 
+    @api.route('/solicitar-membresia')
+    class SolicitarMembresia(Resource):
+        def post(self):
+            """Solicitar membresía - Crear usuario, solicitud y miembro inactivo"""
+            try:
+                data = request.json
+                
+                # Validar campos requeridos
+                campos_requeridos = ['nombre', 'cedula', 'telefono', 'correo', 'clave']
+                for campo in campos_requeridos:
+                    if not data.get(campo):
+                        return {'error': f'El campo {campo} es requerido'}, 400
+                
+                # Validaciones adicionales
+                if len(data['clave']) < 6:
+                    return {'error': 'La contraseña debe tener al menos 6 caracteres'}, 400
+                
+                cur = mysql.connection.cursor()
+                
+                # Verificar si ya existe usuario con esa cédula
+                cur.execute("SELECT cedula FROM usuario WHERE cedula = %s", (data['cedula'],))
+                if cur.fetchone():
+                    cur.close()
+                    return {'error': 'Ya existe un usuario con esta cédula'}, 409
+                
+                # Verificar si ya existe usuario con ese correo
+                cur.execute("SELECT correo FROM usuario WHERE correo = %s", (data['correo'],))
+                if cur.fetchone():
+                    cur.close()
+                    return {'error': 'Ya existe un usuario con este correo electrónico'}, 409
+                
+                # PASO 1: Crear el usuario (tipo 3 = miembro, pero inactivo)
+                cur.execute("""
+                    INSERT INTO usuario (cedula, nombre, telefono, correo, clave, idTipoUsuario) 
+                    VALUES (%s, %s, %s, %s, %s, 3)
+                """, (data['cedula'], data['nombre'], data['telefono'], data['correo'], data['clave']))
+                
+                # PASO 2: Crear la solicitud de membresía
+                fecha_solicitud = data.get('fechaSolicitud', '2025-10-03')  # Fecha actual por defecto
+                cur.execute("""
+                    INSERT INTO solicitudmembresia (cedula, fechaSolicitud, estado) 
+                    VALUES (%s, %s, 'pendiente')
+                """, (data['cedula'], fecha_solicitud))
+                
+                # OBTENER EL ID DE LA SOLICITUD RECIÉN CREADA
+                id_solicitud = cur.lastrowid
+                
+                # PASO 3: Crear registro en tabla miembro con estado "inactivo" e idSolicitud
+                cur.execute("""
+                    INSERT INTO miembro (cedula, idSolicitud, estado) 
+                    VALUES (%s, %s, 'inactivo')
+                """, (data['cedula'], id_solicitud))
+                
+                mysql.connection.commit()
+                cur.close()
+                
+                return {
+                    'mensaje': 'Solicitud de membresía registrada correctamente',
+                    'datos': {
+                        'cedula': data['cedula'],
+                        'nombre': data['nombre'],
+                        'estado': 'Pendiente de aprobación',
+                        'fechaSolicitud': fecha_solicitud
+                    }
+                }, 201
+                
+            except Exception as e:
+                return {'error': f'Error al procesar solicitud: {str(e)}'}, 500
+
     return api

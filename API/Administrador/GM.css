@@ -21,10 +21,10 @@ body {
 
 .form-container {
   background: white;
-  padding: 40px;
+  padding: 25px;
   border: 2px solid #ccc;
   border-radius: 12px;
-  width: 800px;
+  width: 900px;
   max-width: 95%; /* Para que sea responsive */
 }
 
@@ -40,9 +40,9 @@ body {
 }
 
 .tabla-container {
-  margin-top: 20px;
+  margin-top: 15px;
   overflow-x: auto;
-  max-height: 500px;
+  max-height: 350px;
   overflow-y: auto;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -58,19 +58,27 @@ body {
 .tabla-solicitudes th {
   background: #004d26;
   color: white;
-  padding: 12px 8px;
-  text-align: left;
+  padding: 8px 4px;
+  text-align: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 11px;
   position: sticky;
   top: 0;
   z-index: 10;
+  width: 12.5%; /* 100% / 8 columnas */
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .tabla-solicitudes td {
-  padding: 10px 8px;
+  padding: 6px 4px;
   border-bottom: 1px solid #eee;
-  font-size: 13px;
+  border-right: 1px solid #f0f0f0;
+  font-size: 10px;
+  width: 12.5%; /* 100% / 8 columnas */
+  text-align: center;
+  word-wrap: break-word;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 
 .tabla-solicitudes tr:hover {
@@ -81,13 +89,54 @@ body {
   border-bottom: none;
 }
 
+/* Estilos específicos por columna */
+.tabla-solicitudes th:nth-child(1),
+.tabla-solicitudes td:nth-child(1) {
+  text-align: left; /* Nombre */
+  padding-left: 12px;
+}
+
+.tabla-solicitudes th:nth-child(2),
+.tabla-solicitudes td:nth-child(2) {
+  font-family: monospace; /* Cédula */
+  font-size: 11px;
+}
+
+.tabla-solicitudes th:nth-child(3),
+.tabla-solicitudes td:nth-child(3) {
+  font-family: monospace; /* Teléfono */
+  font-size: 10px;
+}
+
+.tabla-solicitudes th:nth-child(4),
+.tabla-solicitudes td:nth-child(4) {
+  font-size: 10px; /* Correo */
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tabla-solicitudes th:nth-child(6),
+.tabla-solicitudes td:nth-child(6) {
+  font-size: 10px; /* Fecha */
+  font-family: monospace;
+}
+
+.tabla-solicitudes td:nth-child(7),
+.tabla-solicitudes td:nth-child(8) {
+  padding: 8px 4px; /* Estados */
+}
+
 /* Estados */
 .estado {
-  padding: 4px 8px;
+  padding: 2px 4px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 9px;
   font-weight: bold;
   text-transform: uppercase;
+  display: inline-block;
+  min-width: 50px;
+  text-align: center;
 }
 
 .estado.pendiente {

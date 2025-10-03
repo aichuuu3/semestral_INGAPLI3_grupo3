@@ -90,14 +90,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('telefono').value = usuario.telefono || '';
                 document.getElementById('correo').value = usuario.correo || '';
                 
+                // Llenar select de estado
                 const estadoSelect = document.getElementById('estado');
                 if (usuario.estadoSolicitud && usuario.estadoSolicitud !== 'Sin solicitud') {
-                    if (usuario.estadoSolicitud.toLowerCase() === 'aceptada') {
+                    const estado = usuario.estadoSolicitud.toLowerCase();
+                    if (estado === 'aceptada') {
                         estadoSelect.value = 'Aceptada';
-                    } else if (usuario.estadoSolicitud.toLowerCase() === 'rechazada') {
+                    } else if (estado === 'rechazada') {
                         estadoSelect.value = 'Rechazada';
+                    } else if (estado === 'pendiente') {
+                        estadoSelect.value = 'Pendiente';
                     }
+                } else {
+                    estadoSelect.value = '';
                 }
+                
+                // Guardar idSolicitud para actualizaciones
+                window.currentSolicitudId = usuario.idSolicitud;
                 
                 alert(`✅ Usuario encontrado: ${usuario.nombre}`);
                 
@@ -123,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const nombre = document.getElementById('nombre').value.trim();
         const telefono = document.getElementById('telefono').value.trim();
         const correo = document.getElementById('correo').value.trim();
+        const estadoSelect = document.getElementById('estado');
+        const estadoSeleccionado = estadoSelect.value;
         
         if (!cedula) {
             alert('❌ Debe buscar un usuario primero ingresando la cédula y haciendo clic en Consultar');
@@ -135,7 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         try {
-            const response = await fetch(`http://localhost:5000/membresia/actualizar-usuario/${cedula}`, {
+            // 1️⃣ ACTUALIZAR DATOS DEL USUARIO
+            const responseUsuario = await fetch(`http://localhost:5000/membresia/actualizar-usuario/${cedula}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -147,18 +159,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
             
-            if (response.ok) {
-                alert('✅ Usuario actualizado correctamente');
-                console.log('Usuario actualizado correctamente');
-                
-                // Recargar la tabla para mostrar los cambios
-                cargarSolicitudes();
-                
-            } else {
-                const error = await response.json();
+            if (!responseUsuario.ok) {
+                const error = await responseUsuario.json();
                 console.error('Error del servidor:', error);
                 alert('❌ Error: ' + (error.error || 'No se pudo actualizar el usuario'));
+                return;
             }
+            
+            let mensaje = '✅ Usuario actualizado correctamente';
+            
+            // 2️⃣ ACTUALIZAR ESTADO DE SOLICITUD (si está seleccionado y existe solicitud)
+            if (estadoSeleccionado && window.currentSolicitudId) {
+                const responseEstado = await fetch(`http://localhost:5000/membresia/cambiar-estado/${window.currentSolicitudId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        estado: estadoSeleccionado.toLowerCase()
+                    })
+                });
+                
+                if (responseEstado.ok) {
+                    if (estadoSeleccionado.toLowerCase() === 'aceptada') {
+                        mensaje += '\n🎉 Membresía ACTIVADA automáticamente';
+                    } else if (estadoSeleccionado.toLowerCase() === 'rechazada') {
+                        mensaje += '\n❌ Membresía mantenida como INACTIVA';
+                    } else if (estadoSeleccionado.toLowerCase() === 'pendiente') {
+                        mensaje += '\n⏳ Solicitud marcada como PENDIENTE';
+                    }
+                } else {
+                    mensaje += '\n⚠️ Usuario actualizado pero hubo error al cambiar el estado de la solicitud';
+                }
+            } else if (estadoSeleccionado && !window.currentSolicitudId) {
+                mensaje += '\n⚠️ No se puede cambiar el estado: este usuario no tiene solicitud de membresía';
+            }
+            
+            alert(mensaje);
+            console.log('Actualización completada');
+            
+            // Recargar la tabla para mostrar los cambios
+            cargarSolicitudes();
             
         } catch (error) {
             console.error('Error de conexión:', error);
@@ -170,7 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('nombre').value = '';
         document.getElementById('telefono').value = '';
         document.getElementById('correo').value = '';
-        document.getElementById('estado').selectedIndex = 0;
+        document.getElementById('estado').value = '';
+        window.currentSolicitudId = null;
     }
     
     function mostrarSolicitudesEnTabla(solicitudes) {
@@ -191,13 +233,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${solicitud.cedula}</td>
                 <td>${solicitud.telefono}</td>
                 <td>${solicitud.correo}</td>
+                <td>${solicitud.tipoUsuario || 'Miembro'}</td>
+                <td>${solicitud.fechaSolicitud || 'N/A'}</td>
                 <td><span class="estado ${getEstadoClass(solicitud.estadoMiembro)}">${solicitud.estadoMiembro}</span></td>
                 <td>
                     <span class="estado ${getEstadoSolicitudClass(solicitud.estadoSolicitud)}">${solicitud.estadoSolicitud}</span>
-                    <button onclick="cambiarEstadoSolicitud(${solicitud.idSolicitud}, '${solicitud.estadoSolicitud}')" 
-                            class="btn-cambiar-estado">
-                        Cambiar
-                    </button>
                 </td>
             `;
             
@@ -229,11 +269,51 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tbody) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="text-align: center; color: red; padding: 20px;">
+                    <td colspan="8" style="text-align: center; color: red; padding: 20px;">
                         ${mensaje}
                     </td>
                 </tr>
             `;
+        }
+    }
+    
+    // FUNCIÓN ACTUALIZAR ESTADO DE SOLICITUD
+    async function actualizarEstadoSolicitud(idSolicitud, nuevoEstado) {
+        try {
+            console.log('🔄 Actualizando estado de solicitud:', idSolicitud, 'a:', nuevoEstado);
+            
+            const response = await fetch(`http://localhost:5000/membresia/cambiar-estado/${idSolicitud}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    estado: nuevoEstado.toLowerCase()
+                })
+            });
+            
+            if (response.ok) {
+                let mensaje = '✅ Estado actualizado correctamente';
+                
+                if (nuevoEstado.toLowerCase() === 'aceptada') {
+                    mensaje += '\n🎉 Membresía ACTIVADA automáticamente';
+                } else if (nuevoEstado.toLowerCase() === 'rechazada') {
+                    mensaje += '\n❌ Membresía mantenida como INACTIVA';
+                }
+                
+                alert(mensaje);
+                
+                // Recargar la tabla para mostrar los cambios
+                cargarSolicitudes();
+                
+            } else {
+                const error = await response.json();
+                alert('❌ Error: ' + (error.error || 'No se pudo actualizar el estado'));
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('❌ Error de conexión al actualizar estado');
         }
     }
     
@@ -284,6 +364,20 @@ document.addEventListener('DOMContentLoaded', function() {
         h3.insertAdjacentElement('afterend', btnRecargar);
     }
     
+    // Event listener para el select de estado (solo para validación)
+    const estadoSelect = document.getElementById('estado');
+    if (estadoSelect) {
+        estadoSelect.addEventListener('change', function() {
+            const nuevoEstado = this.value;
+            const cedula = document.getElementById('cedula').value.trim();
+            
+            if (nuevoEstado && cedula && !window.currentSolicitudId) {
+                alert('❌ Este usuario no tiene una solicitud de membresía registrada');
+                this.value = '';
+            }
+        });
+    }
+    
     // Botón cancelar
     const btnCancelar = document.querySelector('.cancelar');
     if (btnCancelar) {
@@ -291,6 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (confirm('¿Está seguro de que desea limpiar el formulario?')) {
                 limpiarFormulario();
                 document.getElementById('cedula').value = '';
+                window.currentSolicitudId = null;
             }
         });
     }

@@ -61,14 +61,21 @@ def crearMembresia(mysql):
                     u.telefono,
                     u.correo,
                     COALESCE(m.estado, 'Sin membresía') as estadoMiembro,
-                    sm.estado as estadoSolicitud,
+                    COALESCE(sm.estado, 'Sin solicitud') as estadoSolicitud,
                     sm.idSolicitud,
-                    sm.fechaSolicitud
+                    sm.fechaSolicitud,
+                    t.nombre as tipoUsuario
                 FROM usuario u
-                INNER JOIN solicitudmembresia sm ON u.cedula = sm.cedula
+                LEFT JOIN solicitudmembresia sm ON u.cedula = sm.cedula
                 LEFT JOIN miembro m ON u.cedula = m.cedula
-                ORDER BY sm.fechaSolicitud DESC
-                LIMIT 10
+                LEFT JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                ORDER BY 
+                    CASE 
+                        WHEN sm.fechaSolicitud IS NOT NULL THEN sm.fechaSolicitud 
+                        ELSE '1900-01-01' 
+                    END DESC,
+                    u.nombre ASC
+                LIMIT 50
                 """
                 
                 cur.execute(query)
@@ -84,7 +91,8 @@ def crearMembresia(mysql):
                         'estadoMiembro': resultado[4],
                         'estadoSolicitud': resultado[5],
                         'idSolicitud': resultado[6],
-                        'fechaSolicitud': str(resultado[7]) if resultado[7] else None
+                        'fechaSolicitud': str(resultado[7]) if resultado[7] else None,
+                        'tipoUsuario': resultado[8] if len(resultado) > 8 else 'Miembro'
                     } for resultado in resultados]
                 else:
                     return {'mensaje': 'No se encontraron solicitudes'}, 404
