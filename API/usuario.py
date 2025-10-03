@@ -13,77 +13,79 @@ def crearUsuario(mysql):
         'idTipoUsuario': fields.Integer(required=True, description='Tipo de usuario')
     })
 
+    # NUEVO MODELO PARA LOGIN ADMINISTRATIVO
+    loginModelo = api.model('Login', {
+        'correo': fields.String(required=True, description='Correo del usuario'),
+        'clave': fields.String(required=True, description='Contraseña del usuario')
+    })
+
     @api.route('')
     class Usuarios(Resource):
         def get(self):
-            """Obtener todos los usuarios"""
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM usuario")
-            usuarios = cur.fetchall()
-            cur.close()
-            if usuarios:
-                return [{
-                    'idUsuario': usuario[0],
-                    'cedula': usuario[1],
-                    'nombre': usuario[2],
-                    'telefono': usuario[3],
-                    'correo': usuario[4],
-                    'clave': usuario[5],
-                    'idTipoUsuario': usuario[6]
-                } for usuario in usuarios]
-            else:
-                return {'mensaje': 'No se encontraron usuarios'}, 404
-
-        def post(self):
-            """Crear nuevo usuario (soporta JSON y form-data)"""
+            """Obtener todos los usuarios con tipo de usuario"""
             try:
-                # Intentar obtener datos como JSON primero
+                cur = mysql.connection.cursor()
+                cur.execute("""
+                    SELECT u.idUsuario, u.cedula, u.nombre, u.telefono, u.correo, u.clave, u.idTipoUsuario, t.nombre
+                    FROM usuario u
+                    INNER JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                """)
+                usuarios = cur.fetchall()
+                cur.close()
+                if usuarios:
+                    return [{
+                        'idUsuario': usuario[0],
+                        'cedula': usuario[1],
+                        'nombre': usuario[2],
+                        'telefono': usuario[3],
+                        'correo': usuario[4],
+                        'clave': usuario[5],
+                        'idTipoUsuario': usuario[6],
+                        'tipoUsuario': usuario[7]
+                    } for usuario in usuarios]
+                else:
+                    return {'mensaje': 'No se encontraron usuarios'}, 404
+            except Exception as e:
+                return {'error': f'Error al obtener usuarios: {str(e)}'}, 500
+
+        @api.expect(usuarioModelo)
+        def post(self):
+            """Crear nuevo usuario - SIEMPRE TIPO 3 (MIEMBRO)"""
+            try:
                 if request.content_type and 'application/json' in request.content_type:
                     data = request.json
                     cedula = data['cedula']
                     nombre = data['nombre']
                     telefono = data['telefono']
                     correo = data['correo']
-                    clave = data.get('clave', 'temp123')  # Clave temporal por defecto
-                    idTipoUsuario = data.get('idTipoUsuario', 3)  # 3 = miembro
+                    clave = data['clave'] 
+                    idTipoUsuario = 3  # Solo miembros pueden registrarse
                 else:
-                    # Obtener datos como form-data (desde el formulario)
                     cedula = request.form.get('cedula')
                     nombre = request.form.get('nombre')
                     telefono = request.form.get('telefono')
                     correo = request.form.get('correo')
-                    clave = request.form.get('clave')  # Obtener la contraseña del formulario
-                    idTipoUsuario = 3  # 3 = miembro (cambiado de 2 a 3)
-                    
-                    # Manejar archivo de foto si existe
-                    foto = request.files.get('foto')
-                    if foto:
-                        # Aquí podrías guardar la foto si lo necesitas
-                        print(f"Foto recibida: {foto.filename}")
+                    clave = request.form.get('clave') 
+                    idTipoUsuario = 3  # Solo miembros pueden registrarse
                 
-                # Validar que todos los campos requeridos estén presentes
                 if not all([cedula, nombre, telefono, correo, clave]):
-                    return {'error': 'Todos los campos son requeridos (incluyendo contraseña)'}, 400
+                    return {'error': 'Todos los campos son requeridos'}, 400
                 
-                # Validar longitud mínima de contraseña
                 if len(clave) < 6:
                     return {'error': 'La contraseña debe tener al menos 6 caracteres'}, 400
                 
                 cur = mysql.connection.cursor()
                 
-                # Verificar si el usuario ya existe
                 cur.execute("SELECT cedula FROM usuario WHERE cedula = %s", (cedula,))
                 if cur.fetchone():
                     cur.close()
                     return {'error': 'Ya existe un usuario con esta cédula'}, 400
                 
-                # Verificar si el correo ya existe
                 cur.execute("SELECT correo FROM usuario WHERE correo = %s", (correo,))
                 if cur.fetchone():
                     cur.close()
                     return {'error': 'Ya existe un usuario con este correo electrónico'}, 400
                 
-                # Crear el usuario con tipo 3 = Miembro
                 cur.execute("""
                     INSERT INTO usuario (cedula, nombre, telefono, correo, clave, idTipoUsuario) 
                     VALUES (%s, %s, %s, %s, %s, %s)
@@ -97,44 +99,189 @@ def crearUsuario(mysql):
             except Exception as e:
                 return {'error': f'Error al crear usuario: {str(e)}'}, 500
 
+    # ENDPOINT PARA LOGIN DE MIEMBROS (TIPO 3 SOLAMENTE)
+    @api.route('/login')
+    class Login(Resource):
+        @api.expect(loginModelo)
+        def post(self):
+            """Iniciar sesión SOLO PARA MIEMBROS (tipo 3)"""
+            try:
+                if request.content_type and 'application/json' in request.content_type:
+                    data = request.json
+                    correo = data.get('correo')
+                    clave = data.get('clave')
+                else:
+                    correo = request.form.get('correo')
+                    clave = request.form.get('clave')
+                
+                if not correo or not clave:
+                    return {'error': 'El correo y la contraseña son obligatorios'}, 400
+                
+                cur = mysql.connection.cursor()
+                
+                # SOLO PERMITIR TIPO 3 (MIEMBROS) EN ESTE ENDPOINT
+                cur.execute("""
+                    SELECT u.idUsuario, u.cedula, u.nombre, u.telefono, u.correo, u.idTipoUsuario, t.nombre
+                    FROM usuario u
+                    INNER JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                    WHERE u.correo = %s AND u.clave = %s AND u.idTipoUsuario = 3
+                """, (correo, clave))
+                
+                usuario = cur.fetchone()
+                
+                if usuario:
+                    cur.close()
+                    return {
+                        'mensaje': 'Inicio de sesión exitoso',
+                        'usuario': {
+                            'idUsuario': usuario[0],
+                            'cedula': usuario[1],
+                            'nombre': usuario[2],
+                            'telefono': usuario[3],
+                            'correo': usuario[4],
+                            'idTipoUsuario': usuario[5],
+                            'tipoUsuario': usuario[6],
+                            'redirigirA': 'inicio.html'  # Redirección específica
+                        }
+                    }, 200
+                else:
+                    # Verificar si existe pero no es miembro
+                    cur.execute("""
+                        SELECT u.idTipoUsuario, t.nombre
+                        FROM usuario u
+                        INNER JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                        WHERE u.correo = %s AND u.clave = %s
+                    """, (correo, clave))
+                    
+                    usuario_no_miembro = cur.fetchone()
+                    cur.close()
+                    
+                    if usuario_no_miembro:
+                        tipo_usuario = usuario_no_miembro[1]
+                        return {'error': f'Acceso denegado. Este portal es solo para miembros. Tu tipo de usuario es: {tipo_usuario}. Contacta al administrador para acceder a tu panel correspondiente.'}, 403
+                    else:
+                        return {'error': 'Correo electrónico o contraseña incorrectos'}, 401
+                    
+            except Exception as e:
+                return {'error': f'Error en el inicio de sesión: {str(e)}'}, 500
+
+    # NUEVO ENDPOINT PARA LOGIN ADMINISTRATIVO (TODOS LOS TIPOS)
+    @api.route('/login-admin')
+    class LoginAdmin(Resource):
+        @api.expect(loginModelo)
+        def post(self):
+            """Iniciar sesión para ADMINISTRADORES Y CONTADORES"""
+            try:
+                if request.content_type and 'application/json' in request.content_type:
+                    data = request.json
+                    correo = data.get('correo')
+                    clave = data.get('clave')
+                else:
+                    correo = request.form.get('correo')
+                    clave = request.form.get('clave')
+                
+                if not correo or not clave:
+                    return {'error': 'El correo y la contraseña son obligatorios'}, 400
+                
+                cur = mysql.connection.cursor()
+                
+                # PERMITIR TODOS LOS TIPOS DE USUARIO
+                cur.execute("""
+                    SELECT u.idUsuario, u.cedula, u.nombre, u.telefono, u.correo, u.idTipoUsuario, t.nombre
+                    FROM usuario u
+                    INNER JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                    WHERE u.correo = %s AND u.clave = %s
+                """, (correo, clave))
+                
+                usuario = cur.fetchone()
+                cur.close()
+                
+                if usuario:
+                    # Determinar redirección según tipo de usuario
+                    redireccion_map = {
+                        1: 'API/Administrador/MenuAdmin.html',  # Administrador
+                        2: 'Contador/generarInformes.html',     # Contador
+                        3: 'inicio.html'                        # Miembro
+                    }
+                    
+                    tipo_usuario_id = usuario[5]
+                    redirigir_a = redireccion_map.get(tipo_usuario_id, 'inicio.html')
+                    
+                    return {
+                        'mensaje': 'Inicio de sesión exitoso',
+                        'usuario': {
+                            'idUsuario': usuario[0],
+                            'cedula': usuario[1],
+                            'nombre': usuario[2],
+                            'telefono': usuario[3],
+                            'correo': usuario[4],
+                            'idTipoUsuario': usuario[5],
+                            'tipoUsuario': usuario[6],
+                            'redirigirA': redirigir_a
+                        }
+                    }, 200
+                else:
+                    return {'error': 'Correo electrónico o contraseña incorrectos'}, 401
+                    
+            except Exception as e:
+                return {'error': f'Error en el inicio de sesión: {str(e)}'}, 500
+
     @api.route('/<string:cedula>')
     class UsuarioEspecifico(Resource):
         def get(self, cedula):
             """Obtener usuario por cédula"""
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM usuario WHERE cedula = %s", (cedula,))
-            usuario = cur.fetchone()
-            cur.close()
-            if usuario:
-                return {
-                    'idUsuario': usuario[0],
-                    'cedula': usuario[1],
-                    'nombre': usuario[2],
-                    'telefono': usuario[3],
-                    'correo': usuario[4],
-                    'clave': usuario[5],
-                    'idTipoUsuario': usuario[6]
-                }
-            else:
-                return {'mensaje': 'Usuario no encontrado'}, 404
+            try:
+                cur = mysql.connection.cursor()
+                cur.execute("""
+                    SELECT u.idUsuario, u.cedula, u.nombre, u.telefono, u.correo, u.clave, u.idTipoUsuario, t.nombre
+                    FROM usuario u
+                    INNER JOIN tipousuario t ON u.idTipoUsuario = t.idTipoUsuario
+                    WHERE u.cedula = %s
+                """, (cedula,))
+                usuario = cur.fetchone()
+                cur.close()
+                if usuario:
+                    return {
+                        'idUsuario': usuario[0],
+                        'cedula': usuario[1],
+                        'nombre': usuario[2],
+                        'telefono': usuario[3],
+                        'correo': usuario[4],
+                        'clave': usuario[5],
+                        'idTipoUsuario': usuario[6],
+                        'tipoUsuario': usuario[7]
+                    }
+                else:
+                    return {'mensaje': 'Usuario no encontrado'}, 404
+            except Exception as e:
+                return {'error': f'Error al buscar usuario: {str(e)}'}, 500
 
         @api.expect(usuarioModelo)
         def put(self, cedula):
             """Actualizar usuario"""
-            data = request.json
-            cur = mysql.connection.cursor()
-            cur.execute("UPDATE usuario SET nombre=%s, telefono=%s, correo=%s WHERE cedula=%s",
-                        (data['nombre'], data['telefono'], data['correo'], cedula))
-            mysql.connection.commit()
-            cur.close()
-            return {'mensaje': 'Usuario actualizado correctamente'}
+            try:
+                data = request.json
+                cur = mysql.connection.cursor()
+                cur.execute("""
+                    UPDATE usuario 
+                    SET nombre=%s, telefono=%s, correo=%s 
+                    WHERE cedula=%s
+                """, (data['nombre'], data['telefono'], data['correo'], cedula))
+                mysql.connection.commit()
+                cur.close()
+                return {'mensaje': 'Usuario actualizado correctamente'}
+            except Exception as e:
+                return {'error': f'Error al actualizar usuario: {str(e)}'}, 500
 
         def delete(self, cedula):
             """Eliminar usuario"""
-            cur = mysql.connection.cursor()
-            cur.execute("DELETE FROM usuario WHERE cedula = %s", (cedula,))
-            mysql.connection.commit()
-            cur.close()
-            return {'mensaje': 'Usuario eliminado correctamente'}
+            try:
+                cur = mysql.connection.cursor()
+                cur.execute("DELETE FROM usuario WHERE cedula = %s", (cedula,))
+                mysql.connection.commit()
+                cur.close()
+                return {'mensaje': 'Usuario eliminado correctamente'}
+            except Exception as e:
+                return {'error': f'Error al eliminar usuario: {str(e)}'}, 500
 
     return api

@@ -23,32 +23,52 @@
     <!-- Contenido principal -->
     <main class="content">
       <div class="form-container">
+        <div class="solicitudes-section">
+          <h3>Gestión de Membresías</h3>
+          <div class="tabla-container">
+            <table class="tabla-solicitudes">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Estado Miembro</th>
+                        <th>Estado Solicitud</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se cargarán automáticamente con JavaScript -->
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px;">
+                            Cargando datos...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+        <hr class="divider">
+
         <!-- Cédula (solo consulta) -->
         <div class="form-group">
           <label for="cedula">Cédula</label>
           <input type="text" id="cedula" placeholder="0-0000-0000">
-          <button type="button">Consultar</button>
-        </div>
-
-        <!-- Foto -->
-        <div class="form-group">
-          <label for="foto">Foto</label>
-          <input type="file" id="foto">
-          <button type="button">Agregar</button>
+          <button type="button" id="btnConsultar">Consultar</button>
         </div>
 
         <!-- Nombre -->
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" placeholder="Juan Pérez">
-          <button type="button">Consultar</button>
+          <button type="button" id="btnActualizar" class="actualizar">Actualizar Usuario</button>
         </div>
 
         <!-- Teléfono -->
         <div class="form-group">
           <label for="telefono">Teléfono</label>
           <input type="text" id="telefono" placeholder="0000-0000">
-          <button type="button">Actualizar</button>
         </div>
 
         <!-- Correo -->
@@ -61,12 +81,15 @@
         <div class="form-group">
           <label for="estado">Estado</label>
           <select id="estado">
-            <option>Activo</option>
-            <option>Inactivo</option>
+            <option value="">-- Seleccionar --</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aceptada">Aceptada</option>
+            <option value="Rechazada">Rechazada</option>
           </select>
         </div>
 
-        <!-- Botón cancelar -->
+        <!-- Botones -->
+        
         <button class="cancelar">Cancelar</button>
       </div>
     </main>
