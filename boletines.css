@@ -122,6 +122,14 @@ nav ul li a:hover {
     color: #fff !important;
 }
 
+footer {
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
 /* ESTILOS PARA LOS BOLETINES */
 .boletines-flex {
     display: grid;

@@ -43,4 +43,46 @@ function generarInforme(idMiembro) {
     });
 }
 
+function exportarInformeAFormato(formato) {
+  const resultado = document.getElementById('resultadoInforme');
+  const titulo = resultado.querySelector('h3');
+  const lista = resultado.querySelector('ul');
+
+  if (!titulo || !lista) {
+    alert('No hay datos para exportar.');
+    return;
+  }
+
+  const anio = titulo.textContent.match(/\d+/)[0];
+  const pagos = Array.from(lista.querySelectorAll('li')).map(li => {
+    const [fecha, monto] = li.textContent.split(' - Monto: $');
+    return { fecha: fecha.replace('Fecha: ', ''), monto: monto };
+  });
+
+  if (formato === 'pdf') {
+    const doc = new jsPDF();
+    doc.text(`Informe de Pagos - Año ${anio}`, 10, 10);
+    pagos.forEach((pago, index) => {
+      doc.text(`${index + 1}. Fecha: ${pago.fecha}, Monto: $${pago.monto}`, 10, 20 + index * 10);
+    });
+    doc.save(`Informe_Pagos_${anio}.pdf`);
+  } else if (formato === 'csv') {
+    let csvContent = 'Fecha,Monto\n';
+    pagos.forEach(pago => {
+      csvContent += `${pago.fecha},${pago.monto}\n`;
+    });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Informe_Pagos_${anio}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert('Formato no soportado.');
+  }
+}
+
 window.addEventListener('DOMContentLoaded', llenarSelectorAnios);

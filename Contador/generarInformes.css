@@ -1,4 +1,3 @@
-
 body {
 	background: #f6f8fa;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -62,6 +61,22 @@ body {
 }
 .login-form button:hover {
 	background: #222;
+}
+
+button[type="button"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+  background-color: #45a049;
 }
 
 #resultadoInforme {
